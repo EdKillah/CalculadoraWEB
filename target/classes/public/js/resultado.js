@@ -1,2 +1,1 @@
-console.log("Please");
-alert("Entrando ok!");
+console.log("debo colocar alertas de errores");

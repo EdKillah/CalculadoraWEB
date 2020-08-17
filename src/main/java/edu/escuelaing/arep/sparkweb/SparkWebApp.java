@@ -22,6 +22,7 @@ public class SparkWebApp {
 		get("/hello", (req, res) -> "Hello Heroku, you are working");    
         get("/index", SparkWebApp::inputDataPage,new ThymeleafTemplateEngine());
         get("/results", SparkWebApp::resultsPage, new ThymeleafTemplateEngine());
+        get("/", SparkWebApp::inputDataPage,new ThymeleafTemplateEngine());
 	}
 
 	static int getPort() {

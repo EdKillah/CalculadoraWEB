@@ -1,7 +1,5 @@
 body {
-	background: #D3CCE3;
-	background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
-	background: linear-gradient(to right, #E9E4F0, #D3CCE3);
+	background-color: #D6DFAB;
 	margin-top: 30px;
 	text-align: center;
 }
