@@ -32,7 +32,7 @@ public class Reader {
 	 * @param ruta File's path.
 	 * @throws java.io.IOException If the file's path is not found.
 	 */
-	public String leerArchivo(String ruta) throws IOException {
+	public String[] leerArchivo(String ruta) throws IOException {
 		Charset charset = Charset.forName("UTF-8");
 		Path archivo = Paths.get(ruta);
 		LinkedList lista = new LinkedList(); // Como solo tenemos una funcionalidad se crea el objeto
@@ -49,14 +49,16 @@ public class Reader {
 			System.out.println("The number's mean is: " + mean);
 			System.out.println("The number's standar deviation is: " + standarDeviation);
 			String result = "Mean: " + mean + " \nStandar deviation: " + standarDeviation;
-			return result;
+			String[] results = {"Mean: " + mean,"Standar deviation: " + standarDeviation};
+			System.out.println("Double final: "+results);
+			return results;
 		} catch (IOException e) {
 			throw new IOException("El archivo no existe", e);
 		}
 
 	}
 
-	public String prepareDataToReturn(String[] lista) {
+	public String[] prepareDataToReturn(String[] lista) {
 		writeFile(lista);
 		try {
 			return leerArchivo("test_file.txt");

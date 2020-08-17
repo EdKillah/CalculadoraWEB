@@ -2,17 +2,26 @@ package edu.escuelaing.arep.sparkweb;
 
 import static spark.Spark.*;
 
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.escuelaing.arep.linkedlistcalculator.calculator.Reader;
+import spark.ModelAndView;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
+
 import spark.Request;
 import spark.Response;
 
 public class SparkWebApp {
 
 	public static void main(String[] args) {
+		staticFiles.location("/public");  //La cosa più importante per caricare i static files
 		port(getPort());
-		get("/hello", (req, res) -> "Hello Heroku, you are working");
-		get("/index", (req, res) -> inputDataPage(req, res));
-		get("/results", (req, res) -> resultsPage(req, res));
+        
+		get("/hello", (req, res) -> "Hello Heroku, you are working");    
+        get("/index", SparkWebApp::inputDataPage,new ThymeleafTemplateEngine());
+        get("/results", SparkWebApp::resultsPage, new ThymeleafTemplateEngine());
 	}
 
 	static int getPort() {
@@ -23,27 +32,24 @@ public class SparkWebApp {
 		return 4567; // returns default port if heroku-port isn't set
 
 	}
+	
 
-	private static String inputDataPage(Request req, Response res) {
-		String pageContent = "<!DOCTYPE html>" + "<html>" + "<body>" + "<h2>HTML Forms</h2>"
-				+ "<form action=\"/results\">" + "  Operación:<br>"
-				+ "  <input type=\"text\" name=\"firstname\" placeholder=\"Mickey\">" + "  <br>" + "  Lista (Seperada por '-' ) :<br>"
-				+ "  <input type=\"text\" name=\"lastname\" placeholder=\"1-2-3\">" + "  <br><br>"
-				+ "  <input type=\"submit\" value=\"Submit\">" + "</form>"
-				+ "<p>If you click the \"Submit\" button, the form-data will be sent to a page called \"/results\".</p>"
-				+ "</body>" + "</html>";
-		return pageContent;
+	private static ModelAndView inputDataPage(Request req, Response res) {	
+		Map<String, Object> params = new HashMap<>();		
+		return new ModelAndView(params,"index");
 	}
 
-	private static String resultsPage(Request req, Response res) {
-		System.out.println("operacion: "+req.queryParams("firstname"));
+	public static ModelAndView resultsPage(Request req, Response res) {	
 		String lista = req.queryParams("lastname");
-		System.out.println("Lista: "+lista);
-		//Aca podemos crear un metodo intermedio que me convierta el string a una lista o algo así
+		System.out.println("Lista: " + lista);
+		Map<String, Object> params = new HashMap<>();
+		
 		String[] numeros = lista.split("-");
-
 		Reader preparer = new Reader();
-		String response = preparer.prepareDataToReturn(numeros);
-		return req.queryParams("firstname") + " " + req.queryParams("lastname") + " Respuesta: \n"+response;
+		String[] response = preparer.prepareDataToReturn(numeros);		
+		params.put("mean", response[0]);
+		params.put("standarDeviation", response[1]);
+		params.put("list", numeros);
+		return new ModelAndView(params, "resultado");
 	}
 }
