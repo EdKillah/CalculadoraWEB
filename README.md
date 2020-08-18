@@ -105,4 +105,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Enlace al sistema de integración continua
 
 _A continuación se presenta el link:_
-[![CircleCI](https://circleci.com/gh/EdKillah/CalculadoraWEB.svg?style=svg)](https://circleci.com/gh/EdKillah/)
+[![CircleCI](https://circleci.com/gh/EdKillah/CalculadoraWEB.svg?style=svg)](https://circleci.com/gh/EdKillah/CalculadoraWEB)
