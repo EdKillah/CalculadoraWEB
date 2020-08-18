@@ -35,22 +35,17 @@ public class Reader {
 	public String[] leerArchivo(String ruta) throws IOException {
 		Charset charset = Charset.forName("UTF-8");
 		Path archivo = Paths.get(ruta);
-		LinkedList lista = new LinkedList(); // Como solo tenemos una funcionalidad se crea el objeto
+		LinkedList lista = new LinkedList();
 		try (BufferedReader lector = Files.newBufferedReader(archivo, charset)) {
 			String linea;
 			while ((linea = lector.readLine()) != null) {
 				Double element = Double.parseDouble(linea);
-				//System.out.println("Elemento en lectura: " + element);
 				lista.add(element);
 			}
 			Calculator calculator = new Calculator();
 			Double mean = calculator.calculateMean(lista);
-			Double standarDeviation = calculator.calculateStandarDeviation(lista);
-			System.out.println("The number's mean is: " + mean);
-			System.out.println("The number's standar deviation is: " + standarDeviation);
-			String result = "Mean: " + mean + " \nStandar deviation: " + standarDeviation;
-			String[] results = {"Mean: " + mean,"Standar deviation: " + standarDeviation};
-			System.out.println("Double final: "+results);
+			Double standarDeviation = calculator.calculateStandarDeviation(lista);					
+			String[] results = {"Mean: " + mean,"Standar deviation: " + standarDeviation};			
 			return results;
 		} catch (IOException e) {
 			throw new IOException("El archivo no existe", e);
@@ -68,9 +63,7 @@ public class Reader {
 		}
 	}
 
-	public void writeFile(String[] lista) {
-		System.out.println("Me aseguro de que entre LISTA: "+lista);
-		System.out.println("confirmo size: "+lista.length);
+	public void writeFile(String[] lista) {		
 		File f;
 		FileWriter fw;
 		BufferedWriter bw;
@@ -100,8 +93,6 @@ public class Reader {
 	public static void main(String[] args) {
 		Reader lector = new Reader();
 		try {
-			//lector.writeFile("daigual");
-			// lector.leerArchivo(args[0]);
 			lector.leerArchivo("test_file.txt");
 
 		} catch (IOException e) {
