@@ -82,7 +82,6 @@ public class Reader {
 
 			pwr.close();
 			bw.close();
-			System.out.println("Cierra conexiones ok!");
 
 		} catch (IOException e) {
 			System.out.println("Error tratando de escribir");

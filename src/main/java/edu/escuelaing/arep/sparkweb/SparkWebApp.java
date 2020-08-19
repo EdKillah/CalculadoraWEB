@@ -48,8 +48,7 @@ public class SparkWebApp {
 	 * @param res response from server
 	 * @return ModelAndView html page with elements to be renderized using thymleaf
 	 */
-	private static ModelAndView inputDataPage(Request req, Response res) {
-		System.out.println("Request inputData: "+req);
+	private static ModelAndView inputDataPage(Request req, Response res) {		
 		Map<String, Object> params = new HashMap<>();
 		return new ModelAndView(params, "index");
 	}
